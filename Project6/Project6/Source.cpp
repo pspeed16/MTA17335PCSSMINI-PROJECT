@@ -5,8 +5,10 @@
 #include <string>
 #include <iostream>
 //Push comm
-int main()
-{
+
+using namespace std;
+
+int main(){
 	//Winsock Startup
 	WSAData wsaData;
 	WORD DllVersion = MAKEWORD(2, 1);
@@ -32,9 +34,23 @@ int main()
 	}
 	std::cout << "Connected!" << std::endl;
 
-	char MOTD[256];
-	recv(Connection, MOTD, sizeof(MOTD), NULL); //Receive Message of the Day buffer into MOTD array
-	std::cout << "MOTD:" << MOTD << std::endl;
+	//char MOTD[256];
+	//recv(Connection, MOTD, sizeof(MOTD), NULL); //Receive Message of the Day buffer into MOTD array
+	//std::cout << "MOTD:" << MOTD << std::endl;
+
+	char pos[256];
+	recv(Connection, (char*)pos, sizeof(pos) * sizeof(int), NULL);
+
+	/*cout << " " << pos[0] << " " << pos[1] << " " << pos[2] << " " << endl;
+	cout << " " << pos[3] << " " << pos[4] << " " << pos[5] << " " << endl;
+	cout << " " << pos[6] << " " << pos[7] << " " << pos[8] << " " << endl;
+*/
+	while (true) {
+		char respond[256];
+		cin >> respond;
+		send(Connection, respond, sizeof(respond), NULL);
+	}
+	
 	while (true)
 	{
 		Sleep(10);
